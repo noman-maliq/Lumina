@@ -1,0 +1,4 @@
+flask
+rawpy
+numpy
+pillow
