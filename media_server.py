@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 """
-Media Server — view images, videos, and NEF RAW files in your browser.
-Usage:
-    pip install flask rawpy pillow
-    python media_server.py [directory] [--port 8080]
+╔══════════════════════════════════════════════════════════════╗
+║                        Lumina                            ║
+║         Local media browser — images, videos & RAW          ║
+╠══════════════════════════════════════════════════════════════╣
+║  Author  : Noman Malik                                       ║
+║  GitHub  : https://github.com/noman-maliq                    ║
+╠══════════════════════════════════════════════════════════════╣
+║  Usage:                                                      ║
+║    pip install flask rawpy numpy pillow                      ║
+║    python media_server.py [directory] [--port 8080]          ║
+╚══════════════════════════════════════════════════════════════╝
 """
 
 import os
@@ -201,7 +208,7 @@ def _render_gallery(rel: str, items: list, up_link) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MEDIA / {rel or 'root'}</title>
+<title>Lumina / {rel or 'root'}</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;500;700&display=swap');
 
@@ -228,7 +235,8 @@ def _render_gallery(rel: str, items: list, up_link) -> str:
     color: var(--text);
     font-family: var(--font-body);
     min-height: 100vh;
-    padding-bottom: 4rem;
+    padding-bottom: 0;
+    display: flex; flex-direction: column;
   }}
 
   /* ── header ── */
@@ -468,12 +476,44 @@ def _render_gallery(rel: str, items: list, up_link) -> str:
   /* empty */
   .empty {{ text-align: center; padding: 5rem 2rem; color: var(--muted); font-family: var(--font-mono); }}
   .empty .icon {{ font-size: 3rem; margin-bottom: 1rem; }}
+
+  /* ── main content grows to push footer down ── */
+  .page-content {{ flex: 1; padding-bottom: 2rem; }}
+
+  /* ── footer ── */
+  footer {{
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: .6rem;
+  }}
+  .footer-left {{
+    font-family: var(--font-mono);
+    font-size: .72rem; color: var(--muted);
+    display: flex; align-items: center; gap: .8rem;
+  }}
+  .footer-brand {{
+    font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent);
+  }}
+  .footer-right {{
+    font-family: var(--font-mono);
+    font-size: .72rem; color: var(--muted);
+    display: flex; align-items: center; gap: .5rem;
+  }}
+  .footer-right a {{
+    color: var(--accent2); text-decoration: none;
+    transition: color .15s;
+  }}
+  .footer-right a:hover {{ color: var(--text); }}
+  .footer-dot {{ color: var(--border); }}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">MEDIA<span>/SERVER</span></div>
+  <div class="logo">LUM<span>INA</span></div>
   <nav class="crumbs">{crumbs}</nav>
   <div class="search-wrap">
     <input id="search" type="search" placeholder="filter..." autocomplete="off">
@@ -482,6 +522,7 @@ def _render_gallery(rel: str, items: list, up_link) -> str:
 
 {raw_warning}
 
+<div class="page-content">
 <div class="toolbar">
   <span class="count" id="count"></span>
   <div class="view-toggle">
@@ -493,6 +534,21 @@ def _render_gallery(rel: str, items: list, up_link) -> str:
 <div id="gallery">
   {cards if cards else '<div class="empty"><div class="icon">📂</div><div>No media files here.</div></div>'}
 </div>
+</div><!-- /page-content -->
+
+<footer>
+  <div class="footer-left">
+    <span class="footer-brand">Lumina</span>
+    <span class="footer-dot">·</span>
+    <span>Local Media Browser</span>
+  </div>
+  <div class="footer-right">
+    <span>Built by</span>
+    <a href="https://github.com/noman-maliq" target="_blank" rel="noopener">Noman Malik</a>
+    <span class="footer-dot">·</span>
+    <a href="https://github.com/noman-maliq" target="_blank" rel="noopener">github.com/noman-maliq</a>
+  </div>
+</footer>
 
 <!-- lightbox -->
 <div id="lb" role="dialog" aria-modal="true">
@@ -701,7 +757,9 @@ def main():
         print(f"Error: '{SERVE_DIR}' is not a directory.", file=sys.stderr)
         sys.exit(1)
 
-    print(f"\n  📷  Media Server")
+    print(f"\n  📷  Lumina — Local Media Browser")
+    print(f"  ─────────────────────────────────────")
+    print(f"  Author  : Noman Malik  (github.com/noman-maliq)")
     print(f"  ─────────────────────────────────────")
     print(f"  Serving : {SERVE_DIR}")
     print(f"  URL     : http://localhost:{args.port}")

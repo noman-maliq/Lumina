@@ -42,7 +42,7 @@ python media_server.py
 python media_server.py ~/Photos
 
 # Custom host and port
-python media_server.py ~/Photos --host 127.0.0.1 --port 8080
+python media_server.py ~/Photos --host 127.0.0.1 --port 9000
 ```
 
 ### 3. Open your browser
@@ -124,6 +124,12 @@ Python 3.8 or newer required.
 
 ---
 
+## Author
+
+**Noman Malik** — [github.com/noman-maliq](https://github.com/noman-maliq)
+
+---
+
 ## License
 
-Product is free to use, but not to distribute under any commercial use. ALL RIGHTS RESERVED
+MIT — do whatever you want with it.
