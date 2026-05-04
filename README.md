@@ -126,4 +126,4 @@ Python 3.8 or newer required.
 
 ## License
 
-MIT — do whatever you want with it.
+Product is free to use, but not to distribute under any commercial use. ALL RIGHTS RESERVED
