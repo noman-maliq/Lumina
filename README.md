@@ -42,7 +42,7 @@ python media_server.py
 python media_server.py ~/Photos
 
 # Custom host and port
-python media_server.py ~/Photos --host 127.0.0.1 --port 9000
+python media_server.py ~/Photos --host 127.0.0.1 --port 8080
 ```
 
 ### 3. Open your browser
